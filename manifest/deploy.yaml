@@ -2,25 +2,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: punchout-gateway
+  name: supplier-simulator
   namespace: punchout
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: punchout-gateway
+      app: supplier-simulator
   template:
     metadata:
       labels:
-        app: punchout-gateway
+        app: supplier-simulator
     spec:
       containers:
-      - name: punchout-gateway
-        image: zahcen/punchout-gateway:0.3
+      - name: supplier-simulator
+        imagePullPolicy: Always
+        image: zahcen/supplier-simulator:latest
         ports:
           - containerPort: 5000
         env:
           - name: FLASK_APP
             value: app.py  # Update if your file is named differently
+          - name: STORE_URL
+            value: "https://supplier.zitaconseil.fr/punchout/store"
       imagePullSecrets:
         - name: dockerhub-secret
