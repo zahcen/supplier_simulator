@@ -2,6 +2,8 @@ from flask import Flask, request, Response, session, redirect, render_template_s
 import xml.etree.ElementTree as ET
 import uuid
 import datetime
+import html
+import os
 
 app = Flask(__name__)
 app.secret_key = 'your-super-secret-key'
@@ -30,13 +32,15 @@ def punchout_start():
             'created_at': datetime.datetime.utcnow()
         }
 
+        
+        STORE_URL = os.environ.get("STORE_URL", "http://localhost:5000/punchout/store")
         response_xml = f'''<?xml version="1.0" encoding="UTF-8"?>
 <cXML payloadID="{uuid.uuid4()}" timestamp="{datetime.datetime.utcnow().isoformat()}Z">
   <Response>
     <Status code="200" text="OK" />
     <PunchOutSetupResponse>
       <StartPage>
-        <URL>http://localhost:5000/punchout/store?session_id={session_id}</URL>
+        <URL>{STORE_URL}?session_id={session_id}</URL>
       </StartPage>
     </PunchOutSetupResponse>
   </Response>
@@ -103,14 +107,16 @@ def punchout_cart():
     </cXML>
     '''
 
+    escaped_xml = html.escape(response_xml)
     # For demo, just display it
     return f"<h2>Returning Cart to ERP</h2>\
-      <form method=\"POST\" action=\"{return_url}\">\
-      <textarea rows=20 cols=100>{response_xml}</textarea>\
-      <br/><br/><input type=\"submit\" value=\"Return Cart\">\
-      <input type=\"hidden\" name=\"buyer_cookie\" value=\"{buyer_cookie}\">\
-      </form>\
-      <br><p>Would POST to: {return_url}</p>"
+    <div style=\"white-space: pre; font-family: monospace; border: 1px solid #ccc; padding: 1em; background-color: #f8f8f8;\">{ escaped_xml }</div> \
+    <form method=\"POST\" action=\"{return_url}\">\
+    <input name=\"cxml\" type=\"hidden\" rows=20 cols=100 value=\"{escaped_xml}\"></input>\
+    <br/><br/><input type=\"submit\" value=\"Return Cart\">\
+    <input type=\"hidden\" name=\"buyer_cookie\" value=\"{buyer_cookie}\">\
+    </form>\
+    <br><p>Would POST to: {return_url}</p>"
 
 if __name__ == '__main__':
     app.run(debug=True)
