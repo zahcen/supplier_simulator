@@ -1,0 +1,21 @@
+<cXML>
+  <Header>
+    <Sender>
+      <Credential domain="NetworkID">
+        <Identity>BUYER_ID</Identity>
+        <SharedSecret>abc123</SharedSecret>
+      </Credential>
+    </Sender>
+  </Header>
+  <Request>
+    <PunchOutSetupRequest>
+      <BuyerCookie>XYZ-1234</BuyerCookie>
+      <BrowserFormPost>
+        <URL>https://buyer.erp.com/cart_return</URL>
+      </BrowserFormPost>
+      <SupplierSetup>
+        <URL>https://yourdomain.com/punchout/start</URL>
+      </SupplierSetup>
+    </PunchOutSetupRequest>
+  </Request>
+</cXML>

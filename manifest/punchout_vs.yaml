@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: frontend-vs
+  namespace: punchout
+spec:
+  gateways:
+  - istio-system/cert-manager-gateway
+  hosts:
+  - punchout.zitaconseil.fr
+  http:
+  - route:
+    - destination:
+        host: punchout-gateway
+        port:
+          number: 80

@@ -1,0 +1,26 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: punchout-gateway
+  namespace: punchout
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: punchout-gateway
+  template:
+    metadata:
+      labels:
+        app: punchout-gateway
+    spec:
+      containers:
+      - name: punchout-gateway
+        image: zahcen/punchout-gateway:0.3
+        ports:
+          - containerPort: 5000
+        env:
+          - name: FLASK_APP
+            value: app.py  # Update if your file is named differently
+      imagePullSecrets:
+        - name: dockerhub-secret

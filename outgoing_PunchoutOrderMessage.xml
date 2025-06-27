@@ -1,0 +1,25 @@
+<cXML payloadID="" timestamp="">
+  <Message>
+    <PunchOutOrderMessage>
+      <BuyerCookie>XYZ-1234</BuyerCookie>
+      <PunchOutOrderMessageHeader operationAllowed="create">
+        <Total>
+          <Money currency="EUR">259.99</Money>
+        </Total>
+      </PunchOutOrderMessageHeader>
+      <ItemIn quantity="1">
+        <ItemID>
+          <SupplierPartID>12345</SupplierPartID>
+        </ItemID>
+        <ItemDetail>
+          <UnitPrice>
+            <Money currency="EUR">259.99</Money>
+          </UnitPrice>
+          <Description xml:lang="en">Laser Printer</Description>
+          <UnitOfMeasure>EA</UnitOfMeasure>
+          <Classification domain="UNSPSC">43212105</Classification>
+        </ItemDetail>
+      </ItemIn>
+    </PunchOutOrderMessage>
+  </Message>
+</cXML>
