@@ -61,7 +61,6 @@ def punchout_store():
         <p>Session ID: {{ session_id }}</p>
         <p>Welcome to the PunchOut Store! You can add items to your cart.</p>
         <p>Click "Return Cart" to send the cart back to your ERP system.</p>
-        <p>For demo purposes, we will simulate adding a product to the cart.</p
         <form method="POST" action="/punchout/cart">
             <input type="hidden" name="session_id" value="{{ session_id }}">
             <input type="text" name="product_id" value="12345">
