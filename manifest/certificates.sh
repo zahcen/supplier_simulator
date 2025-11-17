@@ -18,19 +18,19 @@ k create secret generic supplier-credential-mutual-tls --from-file=tls.crt=serve
 #Generate Web client auth certificate
 
 #Generate ca key
-openssl genrsa -out ca-client.key 4096
+#openssl genrsa -out ca-client.key 4096
 
 #Generate ca crt auto signé
-openssl req -x509 -new -nodes -key ca-client.key -sha256 -days 3650 -subj "/CN=CA-CLIENT"   -out ca-client.crt
+#openssl req -x509 -new -nodes -key ca-client.key -sha256 -days 3650 -subj "/CN=CA-CLIENT"   -out ca-client.crt
 
 #Generate client key
-openssl genrsa -out client.key 4096
+#openssl genrsa -out client.key 4096
 
 #Generate csr client
-openssl req -new -key client.key -out client.csr -subj "/CN=wcs-client"
+#openssl req -new -key client.key -out client.csr -subj "/CN=wcs-client"
 
 #Generate client.crt
-openssl x509 -req -in client.csr -CA ca-client.crt -CAkey ca-client.key -CAcreateserial -out client.crt -days 36500 -sha256 -extfile client.ext -extensions v3_req
+#openssl x509 -req -in client.csr -CA ca-client.crt -CAkey ca-client.key -CAcreateserial -out client.crt -days 36500 -sha256 -extfile client.ext -extensions v3_req
 
-openssl x509 -in client.crt -text | grep -A4 "Extended Key Usage"
+#openssl x509 -in client.crt -text | grep -A4 "Extended Key Usage"
 
