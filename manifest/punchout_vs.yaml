@@ -5,7 +5,7 @@ metadata:
   namespace: punchout
 spec:
   gateways:
-  - istio-system/cert-manager-gateway
+  - supplier-mtls-gateway-com
   hosts:
   - supplier.zitaconseil.fr
   http:
@@ -16,6 +16,20 @@ spec:
           number: 80
 
 ---
+
+#apiVersion: networking.istio.io/v1
+#kind: DestinationRule
+#metadata:
+#  name: supplier-destination-rule
+#  namespace: punchout
+#spec:
+#  host: supplier-simulator.punchout.svc.cluster.local
+#  trafficPolicy:
+#    tls:
+#      mode: ISTIO_MUTUAL
+
+---
+
 apiVersion: networking.istio.io/v1
 kind: Gateway
 metadata:
@@ -23,7 +37,7 @@ metadata:
     gateway: supplier-mtls-gateway-com
     istio: ingressgateway
   name: supplier-mtls-gateway-com
-  namespace: istio-system
+  namespace: punchout
 spec:
   selector:
     istio: ingressgateway
@@ -36,4 +50,4 @@ spec:
       protocol: HTTPS
     tls:
       credentialName: supplier-credential-mutual-tls
-      mode: MUTUAL
+      mode: SIMPLE

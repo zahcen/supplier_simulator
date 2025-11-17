@@ -1,0 +1,23 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.istio.io/v1","kind":"VirtualService","metadata":{"annotations":{},"name":"supplier-vs","namespace":"punchout"},"spec":{"gateways":["istio-system/cert-manager-gateway"],"hosts":["supplier.zitaconseil.fr"],"http":[{"route":[{"destination":{"host":"supplier-simulator.punchout.svc.cluster.local","port":{"number":80}}}]}]}}
+  creationTimestamp: "2025-06-27T13:42:41Z"
+  generation: 1
+  name: supplier-vs
+  namespace: punchout
+  resourceVersion: "28891493"
+  uid: 7b681709-057f-4bb7-9ae1-4adb26a2b19b
+spec:
+  gateways:
+  - istio-system/cert-manager-gateway
+  hosts:
+  - supplier.zitaconseil.fr
+  http:
+  - route:
+    - destination:
+        host: supplier-simulator.punchout.svc.cluster.local
+        port:
+          number: 80
